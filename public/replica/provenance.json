@@ -1,0 +1,42 @@
+{
+  "campus-aerial.jpg": {
+    "origin": "Esri World Imagery georeferenced export",
+    "requestExtent": {
+      "xmin": 339600,
+      "ymin": 2777350,
+      "xmax": 340650,
+      "ymax": 2778350,
+      "spatialReference": {
+        "wkid": 32640,
+        "latestWkid": 32640
+      }
+    },
+    "source": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+  },
+  "wide.jpg": {
+    "origin": "C:\\Users\\SamDerTad\\Desktop\\CampusVision\\Photogrammetry\\processed\\wide_angle_1\\odm_orthophoto\\odm_orthophoto.tif"
+  },
+  "thermal.jpg": {
+    "origin": "C:\\Users\\SamDerTad\\Desktop\\CampusVision\\Photogrammetry\\processed\\thermal_1\\odm_orthophoto\\odm_orthophoto.tif",
+    "note": "Rendered thermal palette; no calibrated temperature values are implied."
+  },
+  "zoom.jpg": {
+    "origin": "C:\\Users\\SamDerTad\\Desktop\\CampusVision\\Photogrammetry\\processed\\zoom_1\\odm_orthophoto\\odm_orthophoto.tif"
+  },
+  "campus-surfaces.glb": {
+    "origin": "20261008121946091.las and Esri georeferenced aerial imagery",
+    "method": "Aerial-traced architectural outlines; roof elevations constrained by elevated LiDAR samples; smooth fitted roofs"
+  },
+  "campus-facades.glb": {
+    "origin": "Aerial-traced roof outlines and LiDAR-constrained heights",
+    "method": "Modelled facades; procedural window and concrete texture authored by build-replica.py, not captured photography"
+  },
+  "terrain.glb": {
+    "origin": "LiDAR ground fit, corrected wide-camera DSM and Esri World Imagery",
+    "method": "Continuous terrain with georeferenced aerial colour"
+  },
+  "east-surface.glb": {
+    "origin": "C:\\Users\\SamDerTad\\Desktop\\CampusVision\\Photogrammetry\\processed\\wide_angle_1\\odm_texturing\\odm_textured_model_geo.glb",
+    "method": "Preserve source triangles; remove invalid fragments; fit vertical correction to LiDAR; orthographic source texture"
+  }
+}

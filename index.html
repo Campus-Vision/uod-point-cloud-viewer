@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173c53" />
+    <meta name="description" content="Explore the measured University of Dubai campus in an interactive LiDAR point-cloud viewer." />
+    <title>UoD 3D · Campus survey</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand" href="/" aria-label="UoD 3D home"><span class="brand-mark" aria-hidden="true"><i data-lucide="scan"></i></span><span>UoD <strong>3D</strong></span></a>
+      <div class="header-divider"></div>
+      <span class="project-name">Campus survey</span>
+      <span class="phase-tag">Point cloud</span>
+      <a class="replica-entry" href="http://127.0.0.1:5174/">Campus replica<i data-lucide="arrow-up-right"></i></a>
+      <div class="header-actions"><span class="local-indicator"><span></span>Local workspace</span><button class="icon-button header-button" id="help-button" aria-label="Navigation help" aria-expanded="false"><i data-lucide="circle-help"></i></button></div>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar" id="sidebar" aria-label="Survey controls">
+        <div class="sidebar-heading"><h1>University of Dubai</h1><button class="icon-button close-panel" id="close-panel" aria-label="Close controls"><i data-lucide="x"></i></button></div>
+        <p class="location"><i data-lucide="map-pin"></i>Academic City, Dubai</p>
+        <div class="survey-summary">
+          <span class="dataset-symbol"><i data-lucide="cloud"></i></span>
+          <div><strong>LiDAR survey</strong><span>Captured 8 October 2026</span></div>
+          <span class="source-badge">COPC</span>
+        </div>
+        <dl class="dataset-stats">
+          <div><dt>Survey points</dt><dd id="total-points">200,700,295</dd></div>
+          <div><dt>Indexed file</dt><dd id="file-size">1.39 GB</dd></div>
+          <div><dt>Survey extent</dt><dd id="extent">797 × 580 m</dd></div>
+        </dl>
+
+        <fieldset id="appearance-controls" disabled>
+          <legend>Appearance</legend>
+          <label class="field-label" id="colour-label">Colour by</label>
+          <div class="segmented" role="group" aria-labelledby="colour-label">
+            <button data-colour="Color" aria-pressed="true">Natural</button><button data-colour="Z" aria-pressed="false">Elevation</button><button data-colour="Intensity" aria-pressed="false">Intensity</button>
+          </div>
+          <p class="control-note" id="colour-note">Original colours captured by the scanner.</p>
+          <div class="range-label"><label for="point-size">Point size</label><output id="point-size-output" for="point-size">2 px</output></div>
+          <input id="point-size" type="range" min="1" max="6" value="2" step="0.5" />
+          <div class="select-row"><label for="quality">Detail</label><select id="quality"><option value="fast">Fast · 1M points</option><option value="balanced" selected>Balanced · 2M points</option><option value="high">High · 4M points</option></select></div>
+          <label class="toggle-row" for="edl"><span>Enhance depth<span class="toggle-note">Bring out edges and surfaces</span></span><input type="checkbox" id="edl" role="switch" checked /></label>
+        </fieldset>
+
+        <fieldset id="layer-controls" disabled>
+          <legend>Layers</legend>
+          <label class="toggle-row" for="cloud-visible"><span class="layer-name"><i data-lucide="cloud"></i>Point cloud</span><input type="checkbox" id="cloud-visible" role="switch" checked /></label>
+          <label class="toggle-row" for="route-visible"><span class="layer-name"><span class="route-swatch"></span>Scanning route</span><input type="checkbox" id="route-visible" role="switch" /></label>
+          <p class="control-note route-note">The route shows scanner movement, not the coverage boundary.</p>
+          <div class="select-row"><label for="background">Background</label><select id="background"><option value="slate" selected>Slate</option><option value="light">Light</option><option value="dark">Dark</option></select></div>
+        </fieldset>
+
+        <details class="survey-details"><summary>Survey reference<i data-lucide="chevron-down"></i></summary><dl><div><dt>Coordinates</dt><dd>WGS 84 / UTM 40N</dd></div><div><dt>Elevation range</dt><dd id="height-range">35.97–126.56 m</dd></div></dl><p>Vertical datum unverified. Measurements require survey validation.</p><p class="filename">20261008121946091.copc.laz</p></details>
+        <a class="sidebar-replica-link" href="http://127.0.0.1:5174/">Explore the campus replica<i data-lucide="arrow-up-right"></i></a>
+        <div class="sidebar-footer"><i data-lucide="hard-drive"></i><span>Streamed from your computer</span></div>
+      </aside>
+
+      <section class="scene" id="scene" aria-label="Interactive campus point cloud">
+        <div id="view" tabindex="0" role="region" aria-label="3D survey. Drag to orbit, right-drag to pan, scroll to zoom. R resets the view; T shows the top view."></div>
+        <div class="scene-topbar">
+          <div class="view-actions"><button class="scene-button mobile-controls" id="open-panel" aria-label="Open survey controls" aria-controls="sidebar" aria-expanded="false"><i data-lucide="sliders-horizontal"></i><span>Controls</span></button><div class="view-presets" role="group" aria-label="Camera view"><button data-view="campus" aria-pressed="true"><i data-lucide="box"></i><span>Campus</span></button><button data-view="top" aria-pressed="false"><i data-lucide="layers-2"></i><span>Top</span></button></div><button class="scene-button" id="fit-button" title="Fit the entire survey"><i data-lucide="maximize"></i><span>Fit survey</span></button></div>
+          <div class="scene-tools"><button class="scene-icon" id="reset-button" title="Reset campus view (R)" aria-label="Reset campus view"><i data-lucide="rotate-ccw"></i></button><button class="scene-icon" id="fullscreen-button" title="Full screen" aria-label="Enter full screen"><i data-lucide="expand"></i></button></div>
+        </div>
+        <div class="north-indicator" title="North direction"><span>N</span><svg id="north-arrow" viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3 27 30 18 24 9 30Z" fill="currentColor"/><path d="M18 3v21l9 6Z" fill="#7e9da8"/></svg></div>
+
+        <div class="loading-state" id="loading-state" role="status" aria-live="polite"><span class="spinner"></span><div><strong id="loading-title">Opening campus survey</strong><p id="loading-description">Reading the point-cloud index…</p></div></div>
+        <div class="error-state" id="error-state" role="alert" hidden><i data-lucide="triangle-alert"></i><h2>Unable to open the survey</h2><p id="error-message"></p><button id="retry-button">Try again</button></div>
+        <div class="empty-state" id="empty-state" hidden><i data-lucide="eye-off"></i><p>Point cloud hidden</p><button id="show-cloud">Show point cloud</button></div>
+
+        <div class="legend" id="legend" hidden><strong id="legend-title">Elevation</strong><div class="legend-ramp" id="legend-ramp"></div><div class="legend-values"><span id="legend-min">36 m</span><span id="legend-max">127 m</span></div><span id="legend-caption">Survey elevation · datum unverified</span></div>
+
+        <div class="help-panel" id="help-panel" hidden><div class="help-title"><h2>Explore the survey</h2><button id="close-help" class="icon-button" aria-label="Close navigation help"><i data-lucide="x"></i></button></div><dl><div><dt>Orbit</dt><dd>Left-drag / one finger</dd></div><div><dt>Pan</dt><dd>Right-drag / two fingers</dd></div><div><dt>Zoom</dt><dd>Scroll / pinch</dd></div><div><dt>Focus a surface</dt><dd>Double-click a point</dd></div><div><dt>Reset campus view</dt><dd><kbd>R</kbd></dd></div><div><dt>Top view</dt><dd><kbd>T</kbd></dd></div></dl><p>More detail loads as you move closer. Uncaptured areas remain empty.</p></div>
+        <div class="toast" id="toast" role="status" hidden></div>
+
+        <div class="scene-bottom"><div class="scale" title="Approximate scale at the orbit centre"><span id="scale-label">50 m</span><div id="scale-line"></div></div><p class="navigation-hint">Drag to orbit<span>·</span>Right-drag to pan<span>·</span>Scroll to zoom</p><span class="scene-caption">Measured campus scan</span></div>
+      </section>
+    </main>
+    <footer class="statusbar"><div class="status-message"><span class="status-dot" id="status-dot"></span><span id="status-text">Connecting to survey</span></div><div class="status-details"><span><strong id="displayed-points">—</strong> points in view</span><span class="status-divider"></span><span id="reference-label">UTM 40N · metres</span></div></footer>
+    <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

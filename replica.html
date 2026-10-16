@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="refresh" content="0;url=http://127.0.0.1:5174/"/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#173c53"/>
+  <meta name="description" content="Explore the University of Dubai compound and inspect registered wide, thermal and zoom captures of its eastern solar array."/>
+  <title>UoD 3D · Campus replica</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+</head>
+<body class="replica-app">
+  <header class="app-header">
+    <a class="brand" href="/replica.html" aria-label="UoD 3D campus replica"><span class="brand-mark" aria-hidden="true"><i data-lucide="scan"></i></span><span>UoD <strong>3D</strong></span></a>
+    <div class="header-divider"></div>
+    <nav class="product-nav" aria-label="Workspace"><a href="/replica.html" aria-current="page">Campus replica</a><a href="/">LiDAR survey<i data-lucide="arrow-up-right"></i></a></nav>
+    <div class="header-actions"><span class="local-indicator"><span></span>Local workspace</span><button class="icon-button header-button" id="replica-help" aria-label="Navigation help" aria-expanded="false"><i data-lucide="circle-help"></i></button></div>
+  </header>
+  <main class="workspace">
+    <aside class="sidebar replica-sidebar" id="replica-sidebar" aria-label="Campus controls">
+      <div class="sidebar-heading"><h1>University of Dubai</h1><button class="icon-button close-panel" id="replica-close" aria-label="Close campus controls"><i data-lucide="x"></i></button></div>
+      <p class="location"><i data-lucide="map-pin"></i>Academic City, Dubai</p>
+      <p class="replica-intro">The compound, in perspective.</p>
+      <fieldset class="place-controls" id="place-controls" disabled><legend>Explore campus</legend>
+        <div class="place-list" role="group" aria-label="Campus locations">
+          <button data-place="compound" aria-pressed="true"><span class="place-icon"><i data-lucide="land-plot"></i></span><span><strong>Entire compound</strong><small>Full perimeter & surroundings</small></span><i data-lucide="chevron-right"></i></button>
+          <button data-place="building" aria-pressed="false"><span class="place-icon"><i data-lucide="building-2"></i></span><span><strong>University building</strong><small>Courtyard, wings & entrances</small></span><i data-lucide="chevron-right"></i></button>
+          <button data-place="east" aria-pressed="false"><span class="place-icon"><i data-lucide="panels-top-left"></i></span><span><strong>East solar array</strong><small>Wide · Thermal · Zoom</small></span><span class="capture-dot" title="Camera captures available"></span></button>
+          <button data-place="south" aria-pressed="false"><span class="place-icon"><i data-lucide="panels-top-left"></i></span><span><strong>South solar array</strong><small>Reconstructed from aerial imagery</small></span><i data-lucide="chevron-right"></i></button>
+        </div>
+      </fieldset>
+      <fieldset class="capture-controls" id="capture-controls" disabled><legend>East array inspection</legend>
+        <div class="capture-modes" role="group" aria-label="East array capture mode">
+          <button data-capture="normal" aria-pressed="true"><i data-lucide="box"></i><span>Normal</span></button><button data-capture="wide" aria-pressed="false"><strong>W</strong><span>Wide</span></button><button data-capture="thermal" aria-pressed="false"><strong>T</strong><span>Thermal</span></button><button data-capture="zoom" aria-pressed="false"><strong>Z</strong><span>Zoom</span></button>
+        </div>
+        <p class="capture-description" id="capture-description">The textured, three-dimensional campus.</p>
+        <div class="alignment-note"><i data-lucide="crosshair"></i><span>Shared surface. Registered captures.</span></div>
+        <p class="thermal-note" id="thermal-note" hidden>Recorded thermal colours. These images do not provide calibrated temperatures.</p>
+      </fieldset>
+      <fieldset id="replica-display" disabled><legend>Scene</legend>
+        <label class="toggle-row" for="landscape-toggle"><span>Landscape<span class="toggle-note">Image-positioned trees & vegetation</span></span><input type="checkbox" role="switch" id="landscape-toggle" checked/></label>
+        <label class="toggle-row" for="perimeter-toggle"><span>Show perimeter<span class="toggle-note">Extent traced from aerial imagery</span></span><input type="checkbox" role="switch" id="perimeter-toggle"/></label>
+        <div class="select-row"><label for="lighting-select">Lighting</label><select id="lighting-select"><option value="daylight">Daylight</option><option value="afternoon">Late afternoon</option><option value="soft">Soft light</option></select></div>
+      </fieldset>
+      <details class="survey-details replica-source"><summary>About this replica<i data-lucide="chevron-down"></i></summary><p>Building outlines follow aerial imagery, with roof elevations constrained by LiDAR. The eastern array uses the supplied photogrammetry and registered camera imagery.</p><p>Facades, parking canopies, vegetation and the southern array include modelled details. Uncaptured surfaces remain approximate. The perimeter is image-traced, not cadastral.</p><p>Normal shows modelled photovoltaic materials. W/T/Z shows the recorded eastern-array imagery on the same surface. Captures were made on 8 October 2026.</p><a href="/" class="reference-link">Open the measured survey<i data-lucide="arrow-up-right"></i></a></details>
+      <div class="sidebar-footer"><i data-lucide="hard-drive"></i><span>Source data stays on your computer</span></div>
+    </aside>
+    <section class="replica-scene" id="replica-scene" aria-label="Three-dimensional campus replica">
+      <div id="replica-view" tabindex="0" role="region" aria-label="3D campus. Drag to orbit, right-drag to pan, scroll to zoom. R resets to the entire compound. T shows the top view."></div>
+      <div class="replica-toolbar"><div class="view-actions"><button class="replica-tool mobile-controls" id="replica-open" aria-label="Open campus controls" aria-controls="replica-sidebar" aria-expanded="false"><i data-lucide="sliders-horizontal"></i></button><div class="replica-view-presets" role="group" aria-label="Camera angle"><button data-angle="perspective" aria-pressed="true"><i data-lucide="box"></i><span>Perspective</span></button><button data-angle="top" aria-pressed="false"><i data-lucide="layers-2"></i><span>Top</span></button></div></div><div class="scene-tools"><button class="replica-tool icon-only" id="replica-reset" aria-label="Reset entire compound view" title="Reset view (R)"><i data-lucide="rotate-ccw"></i></button><button class="replica-tool icon-only" id="replica-fullscreen" aria-label="Enter full screen" title="Full screen"><i data-lucide="expand"></i></button></div></div>
+      <div class="replica-north" title="North direction"><span>N</span><svg id="replica-north-arrow" viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3 27 30 18 24 9 30Z" fill="currentColor"/><path d="M18 3v21l9 6Z" fill="#a7b5b4"/></svg></div>
+      <div id="site-labels" class="site-labels" aria-hidden="true"></div>
+      <div class="replica-loading" id="replica-loading" role="status" aria-live="polite"><span class="replica-spinner"></span><strong>Bringing the campus into view</strong><p id="replica-loading-detail">Preparing terrain and source imagery…</p><div class="load-progress"><span id="load-progress-fill"></span></div></div>
+      <div class="replica-error" id="replica-error" role="alert" hidden><i data-lucide="triangle-alert"></i><h2>The campus could not load</h2><p id="replica-error-detail"></p><button id="replica-retry">Try again</button><a href="/">Return to LiDAR survey</a></div>
+      <div class="capture-badge" id="capture-badge" hidden><span id="capture-badge-code">W</span><div><strong id="capture-badge-title">Wide camera</strong><small>East solar array · 8 Oct 2026</small></div><i data-lucide="crosshair"></i></div>
+      <div class="replica-help-panel" id="replica-help-panel" hidden><div class="help-title"><h2>Explore the campus</h2><button class="icon-button" id="replica-help-close" aria-label="Close navigation help"><i data-lucide="x"></i></button></div><dl><div><dt>Orbit</dt><dd>Left-drag / one finger</dd></div><div><dt>Pan</dt><dd>Right-drag / two fingers</dd></div><div><dt>Zoom</dt><dd>Scroll / pinch</dd></div><div><dt>Reset compound</dt><dd><kbd>R</kbd></dd></div><div><dt>Top view</dt><dd><kbd>T</kbd></dd></div></dl><p>Use the location list to visit either solar array. W/T/Z changes imagery on the eastern array while keeping its surface and camera fixed.</p></div>
+      <div class="replica-toast" id="replica-toast" role="status" hidden></div>
+      <div class="replica-bottom"><div class="replica-location"><span class="location-indicator"></span><div><strong id="active-location">Entire compound</strong><span id="active-location-detail">University of Dubai</span></div></div><p class="replica-hint">Drag to orbit <span>·</span> Scroll to explore</p></div>
+      <div class="imagery-attribution">Imagery © Esri, Maxar, Earthstar Geographics & the GIS User Community</div>
+    </section>
+  </main>
+  <footer class="statusbar"><div class="status-message"><span class="status-dot" id="replica-status-dot"></span><span id="replica-status">Loading campus assets</span></div><div class="status-details"><span id="replica-mode-status">Survey-informed campus reconstruction</span><span class="status-divider"></span><span>UTM 40N · metres</span></div></footer>
+  <div class="drawer-backdrop" id="replica-backdrop" hidden></div>
+  <script>location.replace('http://127.0.0.1:5174/');</script>
+</body>
+</html>
