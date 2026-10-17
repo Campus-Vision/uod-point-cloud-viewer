@@ -1,0 +1,19 @@
+# Vercel ignore — never deploy these to the serverless environment
+# Binary assets (too large; require external blob hosting)
+public/replica/*.glb
+public/replica/*.bin
+public/replica/*.jpg
+# Raw survey data (stays local)
+*.laz
+*.las
+*.copc
+# Node tooling and build output
+node_modules/
+dist/
+# Local environment
+.env.local
+.env.*.local
+# Test outputs and browser screenshots
+tests/screenshots/
+# Scripts (only source and config are needed)
+scripts/

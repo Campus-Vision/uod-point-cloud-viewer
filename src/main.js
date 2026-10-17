@@ -51,10 +51,15 @@ async function json(url) {
   return response.json();
 }
 
+// COPC source root: /survey in local dev, VITE_COPC_BASE_URL on hosted deployment.
+// The hosted URL must support byte-range requests (HTTP 206) and CORS.
+const copcBase = (import.meta.env.VITE_COPC_BASE_URL ?? '/survey').replace(/\/$/, '');
+const copcCloudUrl = `${copcBase}/cloud.copc.laz`;
+
 // Reject a server that ignores ranges: never accidentally download the entire 1.39 GB file.
 async function getCloudRange(begin, end) {
   try {
-    const response = await fetch('/survey/cloud.copc.laz', { headers: { Range: `bytes=${begin}-${end - 1}` } });
+    const response = await fetch(copcCloudUrl, { headers: { Range: `bytes=${begin}-${end - 1}` } });
     if (response.status !== 206) {
       await response.body?.cancel();
       throw new Error(`Point-cloud server returned HTTP ${response.status}; expected a byte range (206).`);
@@ -177,7 +182,7 @@ function updateStatus() {
 }
 
 async function loadRoute() {
-  const route = await json('/survey/route.json');
+  const route = await json(`${copcBase}/route.json`);
   routeGroup = new Group();
   routeGroup.name = 'Scanning route';
   routeGroup.position.copy(campusCenter);
@@ -200,7 +205,7 @@ async function loadRoute() {
 
 async function init() {
   try {
-    manifest = await json('/survey/manifest.json');
+    manifest = await json(`${copcBase}/manifest.json`);
     $('total-points').textContent = format.format(manifest.pointCount);
     $('file-size').textContent = `${(manifest.bytes / 1e9).toFixed(2)} GB`;
     const [minX, minY, minZ, maxX, maxY, maxZ] = manifest.bounds;
